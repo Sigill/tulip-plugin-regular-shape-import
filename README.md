@@ -2,7 +2,7 @@
 
 ## Description
 
-These plugins allow to generate graphs whith a regular shape.
+These plugins allow to generate graphs with regular shapes.
 
 ## Build
 
