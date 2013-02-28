@@ -1,4 +1,5 @@
-#include <tulip/TulipPlugin.h>
+#include <tulip/ImportModule.h>
+#include <tulip/TulipPluginHeaders.h>
 #include <cmath>
 #include <stdexcept>
 #include <iostream>
@@ -7,13 +8,6 @@ using namespace std;
 using namespace tlp;
 
 const string PLUGIN_NAME("Regular shape import");
-
-void displayMessage(string message, PluginProgress* pp)
-{
-	string m = "(" + PLUGIN_NAME + ") " + message;
-	std::cerr << m << std::endl;
-	if(pp) pp->setError(m);
-}
 
 #define SHAPELIST "Circle;SinCircle;SpiralCircle"
 
@@ -33,9 +27,11 @@ const char *paramHelp[] = {
 
 class ShapeGenerator: public ImportModule {
 public:
-	ShapeGenerator(AlgorithmContext context) :
+	PLUGININFORMATIONS(PLUGIN_NAME, "Cyrille Faucheux", "2013-02-07", "", "1.0", "Graph")
+
+	ShapeGenerator(PluginContext *context) :
 		ImportModule(context) {
-			addParameter< StringCollection >("Shape", paramHelp[0], ShapeList);
+			addInParameter< StringCollection >("Shape", paramHelp[0], ShapeList);
 		}
 	~ShapeGenerator() {}
 
@@ -102,4 +98,4 @@ public:
 	}
 };
 
-IMPORTPLUGINOFGROUP(ShapeGenerator, PLUGIN_NAME, "Cyrille Faucheux", "07/02/2013", "", "1.0", "Graphs")
+PLUGIN(ShapeGenerator);
